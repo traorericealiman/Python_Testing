@@ -21,5 +21,11 @@
         <input type="email" name="email" id=""/>
         <button type="submit">Enter</button>
     </form>
+    <h2>List of Clubs</h2>
+    <ul>
+        {% for club in clubs %}
+            <li>{{ club['name'] }} - Points: {{ club['points'] }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
