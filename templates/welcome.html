@@ -3,34 +3,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary | GUDLFT Registration</title>
+    <!-- Lien vers Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-        <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="text-center">Welcome, {{club['email']}}</h2>
+        <div class="text-center">
+            <a href="{{url_for('logout')}}" class="btn btn-danger">Logout</a>
+        </div>
 
-    {% with messages = get_flashed_messages()%}
-    {% if messages %}
-        <ul>
-       {% for message in messages %}
-            <li>{{message}}</li>
-        {% endfor %}
-       </ul>
-    {% endif%}
-    Points available: {{club['points']}}
-    <h3>Competitions:</h3>
-    <ul>
-        {% for comp in competitions%}
-        <li>
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
-    {%endwith%}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="list-unstyled mt-3">
+                {% for message in messages %}
+                    <li class="text-danger">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
 
+        <h3>Points Available: {{club['points']}}</h3>
+
+        <h3>Competitions:</h3>
+        <ul class="list-group">
+            {% for comp in competitions %}
+            <li class="list-group-item">
+                <h5>{{ comp['name'] }}</h5>
+                <p>Date: {{ comp['date'] }}</p>
+                <p>Number of Places: {{ comp['numberOfPlaces'] }}</p>
+                {% if comp['numberOfPlaces']|int > 0 %}
+                    <a href="{{ url_for('book', competition=comp['name'], club=club['name']) }}" class="btn btn-primary">Book Places</a>
+                {% endif %}
+            </li>
+            <hr />
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Lien vers Bootstrap JS (optionnel) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
