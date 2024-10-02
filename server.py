@@ -28,7 +28,15 @@ def index():
 
 @app.route("/showSummary", methods=["POST"])
 def showSummary():
-    club = [club for club in clubs if club["email"] == request.form["email"]][0]
+    email = request.form["email"]
+    # Cherchez le club correspondant à l'email
+    club = [club for club in clubs if club["email"] == email]
+
+    if not club:  # Si l'email n'est pas trouvé
+        flash("Email incorrect, veuillez réessayer.")
+        return redirect(url_for("index"))  # Redirige vers la page d'accueil
+
+    club = club[0]  # Récupérez le premier club si l'email est correct
     return render_template("welcome.html", club=club, competitions=competitions)
 
 
