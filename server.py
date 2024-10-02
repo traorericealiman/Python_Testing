@@ -65,8 +65,20 @@ def purchasePlaces():
     club_name = request.form.get("club")
     places = request.form.get("places")
 
-    if not places or not places.isdigit() or int(places) <= 0:
+    if not places or not places.isdigit():
         flash("Veuillez entrer un nombre valide de places.")
+        return redirect(url_for("book", competition=competition_name, club=club_name))
+    try:
+        placesRequired = int(places)
+    except (ValueError, TypeError):
+        flash("Veuillez entrer un nombre valide.")
+        return redirect(url_for("book", competition=competition_name, club=club_name))
+
+    # Bloquer les nombres inférieurs à 0 ou supérieurs à 12
+    if placesRequired < 0:
+        flash(
+            "Le nombre de places ne peut pas être inférieur à 0. Veuillez entrer un nombre valide."
+        )
         return redirect(url_for("book", competition=competition_name, club=club_name))
 
     placesRequired = int(places)
