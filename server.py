@@ -63,7 +63,13 @@ def book(competition, club):
 def purchasePlaces():
     competition_name = request.form.get("competition")
     club_name = request.form.get("club")
-    placesRequired = int(request.form.get("places", 0))
+    places = request.form.get("places")
+
+    if not places or not places.isdigit() or int(places) <= 0:
+        flash("Veuillez entrer un nombre valide de places.")
+        return redirect(url_for("book", competition=competition_name, club=club_name))
+
+    placesRequired = int(places)
 
     competition = next((c for c in competitions if c["name"] == competition_name), None)
     club = next((c for c in clubs if c["name"] == club_name), None)
