@@ -96,7 +96,7 @@ def purchasePlaces():
         if club_points < placesRequired:
             flash("Vous n'avez pas assez de points pour réserver ce nombre de places.")
             return redirect(
-                url_for("welcome.html", competition=competition_name, club=club_name)
+                url_for("welcome.ht", competition=competition_name, club=club_name)
             )
         else:
             competition["numberOfPlaces"] = available_places - placesRequired
