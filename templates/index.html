@@ -3,29 +3,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUDLFT Registration</title>
+    <!-- Lien vers Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-    <h1>Welcome to the GUDLFT Registration Portal!</h1>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    Please enter your secretary email to continue:
-    <form action="showSummary" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id=""/>
-        <button type="submit">Enter</button>
-    </form>
-    <h2>List of Clubs</h2>
-    <ul>
-        {% for club in clubs %}
-            <li>{{ club['name'] }} - Points: {{ club['points'] }}</li>
-        {% endfor %}
-    </ul>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to the GUDLFT Registration Portal!</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="list-unstyled">
+                    {% for message in messages %}
+                        <li class="text-danger">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <p class="text-center">Please enter your secretary email to continue:</p>
+        <form action="showSummary" method="post" class="mt-4">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" required/>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Enter</button>
+        </form>
+
+        <h2 class="mt-5">List of Clubs</h2>
+        <ul class="list-group mt-3">
+            {% for club in clubs %}
+                <li class="list-group-item">{{ club['name'] }} - Points: {{ club['points'] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Lien vers Bootstrap JS (optionnel) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
